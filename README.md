@@ -1,4 +1,4 @@
-# 🌧️ WRF-Hydro Real Case Simulation using Docker
+# 🌧️ 📊 Hasil Simulasi WRF-Hydro pada Kasus Siklon Tropis Dahlia
 ## TC Dahlia
 
 Dokumentasi proses pembangunan (*build*), preprocessing, dan simulasi **WRF-Hydro v5.2.0-rc1** menggunakan Docker berdasarkan studi kasus yang dikerjakan selama kegiatan magang di **Badan Riset dan Inovasi Nasional (BRIN)**.
@@ -7,7 +7,13 @@ Repository ini mencakup proses mulai dari build WRF-Hydro, pembuatan **Routing S
 
 # 🌧️ Latar Belakang
 
-**WRF-Hydro (Weather Research and Forecasting Hydrological Modeling System)** merupakan model hidrologi terdistribusi yang terintegrasi dengan WRF untuk mensimulasikan proses hidrologi seperti kelembapan tanah, genangan permukaan, debit sungai, dan airtanah. Pada repository ini, WRF-Hydro dijalankan secara **offline** menggunakan forcing dari simulasi **WRF-ARW v4.3** pada kejadian **Siklon Tropis Dahlia (29 November–2 Desember 2017)**. Output WRF dikonversi menjadi file **LDASIN** menggunakan Google Colab, kemudian digunakan sebagai masukan utama Noah-MP dan modul hidrologi WRF-Hydro.
+**WRF-Hydro (Weather Research and Forecasting Hydrological Modeling System)** merupakan model hidrologi yang dikembangkan sebagai pengembangan dari **Weather Research and Forecasting (WRF)**. Jika WRF digunakan untuk mensimulasikan kondisi atmosfer seperti curah hujan, temperatur, dan angin, maka WRF-Hydro memanfaatkan output tersebut sebagai **data forcing** untuk mensimulasikan respon hidrologi, seperti kelembapan tanah (*soil moisture*), genangan permukaan (*surface ponding*), debit sungai (*streamflow*), serta dinamika airtanah (*groundwater*).
+
+Pada repository ini, WRF-Hydro dijalankan dalam **mode offline** menggunakan data forcing hasil simulasi **WRF-ARW v4.3** pada kejadian **Siklon Tropis Dahlia** tanggal **29 November–2 Desember 2017**. Output WRF terlebih dahulu dikonversi menjadi file **LDASIN**, kemudian digunakan sebagai masukan utama bagi model Noah-MP dan modul hidrologi WRF-Hydro.
+
+Siklon Tropis Dahlia meningkatkan aktivitas konvektif dan distribusi curah hujan di wilayah selatan Pulau Jawa. Kondisi tersebut memberikan respon terhadap sistem hidrologi berupa peningkatan kelembapan tanah, terbentuknya genangan pada beberapa lokasi, perubahan debit aliran sungai, serta perubahan kondisi airtanah. Oleh karena itu, kejadian ini dipilih sebagai studi kasus untuk mengevaluasi kemampuan WRF-Hydro dalam merepresentasikan respon hidrologi terhadap kejadian cuaca ekstrem.
+
+Repository ini mendokumentasikan seluruh tahapan mulai dari pembangunan (*build*) WRF-Hydro, pembuatan **Routing Stack**, penyusunan data **LDASIN**, pelaksanaan simulasi, hingga visualisasi hasil berupa **Soil Moisture**, **Surface Ponding**, **Streamflow**, dan **Groundwater Depth**.
 
 
 ---
@@ -1173,55 +1179,94 @@ Seluruh visualisasi dihasilkan dari output **LDASOUT**, **CHRTOUT**, dan **GWOUT
 
 ## 🌱 Soil Moisture (Top Layer)
 
+> **Sumber data:** `LDASOUT_DOMAIN*`
+
 <p align="center">
 <img src="docs/soil%20moisture.png" width="900">
 </p>
 
-Soil Moisture menunjukkan kandungan air pada lapisan tanah paling atas. Nilai yang semakin tinggi menunjukkan tanah semakin jenuh oleh air, sedangkan nilai yang rendah menunjukkan kondisi tanah yang lebih kering. Variabel ini digunakan untuk mengevaluasi infiltrasi dan kondisi kelembapan tanah selama simulasi.
+Soil Moisture merupakan salah satu keluaran dari file **LDASOUT** yang menunjukkan kandungan air pada lapisan tanah paling atas (*top layer*). Variabel ini digunakan untuk mengevaluasi kondisi kelembapan tanah sebagai respon terhadap curah hujan yang diberikan oleh model WRF.
 
-🎥 **Animasi Soil Moisture**
+Nilai soil moisture yang semakin tinggi menunjukkan bahwa tanah semakin jenuh oleh air akibat proses infiltrasi, sedangkan nilai yang lebih rendah menunjukkan kondisi tanah yang relatif lebih kering. Distribusi spasial variabel ini memberikan gambaran mengenai wilayah yang mengalami peningkatan penyimpanan air di dalam tanah selama kejadian Siklon Tropis Dahlia.
 
-> Masukkan link Google Drive di sini.
+### 🎥 Animasi Soil Moisture
+
+> *(https://drive.google.com/file/d/1GDTzTZpJLtnayXlN8i_JXEF7aM74Ur2X/view?usp=drive_link)*
 
 ---
 
 ## 🌊 Streamflow
 
-| Distribusi Debit Sungai | Jaringan Sungai Hasil Routing |
-|:------------------------:|:-----------------------------:|
+> **Sumber data:** `CHRTOUT_DOMAIN*` *(Channel Routing Output)*
+
+| Distribusi Debit Sungai | Visualisasi Jaringan Sungai |
+|:------------------------:|:---------------------------:|
 | <img src="docs/stream%20flow%201.png" width="430"> | <img src="docs/stream%20flow%202.png" width="430"> |
 
-Streamflow merupakan debit aliran pada jaringan sungai hasil simulasi WRF-Hydro yang diperoleh dari proses **channel routing**. Besarnya debit dipengaruhi oleh curah hujan, infiltrasi, limpasan permukaan, serta karakteristik jaringan sungai yang dibangun selama proses GIS Preprocessor.
+Streamflow merupakan keluaran dari file **CHRTOUT (Channel Routing Output)** yang merepresentasikan debit aliran pada jaringan sungai hasil simulasi WRF-Hydro. Variabel ini dihasilkan melalui proses **channel routing**, yaitu simulasi pergerakan air dari limpasan permukaan menuju jaringan sungai berdasarkan karakteristik DAS dan topografi.
 
-Gambar sebelah kiri memperlihatkan distribusi debit sungai beserta titik pengamatan pada jaringan sungai, sehingga memudahkan identifikasi lokasi dengan debit terbesar selama simulasi. Sementara itu, gambar sebelah kanan menampilkan visualisasi jaringan sungai secara lebih menyeluruh, sehingga pola konektivitas dan jalur utama aliran dapat diamati dengan lebih jelas.
+Gambar sebelah kiri memperlihatkan distribusi debit sungai beserta titik pengamatan pada jaringan sungai, sedangkan gambar sebelah kanan menampilkan visualisasi jaringan sungai secara lebih menyeluruh sehingga pola konektivitas aliran dapat diamati dengan lebih jelas.
 
-Secara umum, warna yang semakin gelap menunjukkan nilai debit (*streamflow*) yang semakin besar. Informasi ini penting untuk mengevaluasi respon hidrologi DAS terhadap kejadian hujan ekstrem selama Siklon Tropis Dahlia.
+Secara umum, warna yang semakin gelap menunjukkan debit sungai (*streamflow*) yang semakin besar. Informasi ini digunakan untuk mengevaluasi respon jaringan sungai terhadap curah hujan hasil simulasi WRF selama kejadian Siklon Tropis Dahlia.
 
 ### 🎥 Animasi Streamflow
 
-> *(Masukkan link Google Drive di sini)*
+> *(https://drive.google.com/file/d/1AgXX8TdjzstBZvLW03NbfzhuMGvfOJpt/view?usp=drive_link)*
+
+---
+
+## 💧 Surface Ponding
+
+> **Sumber data:** `LDASOUT_DOMAIN*`
+
+<p align="center">
+<img src="docs/surface%20ponding.png" width="900">
+</p>
+
+Surface Ponding merupakan keluaran dari file **LDASOUT** yang menggambarkan akumulasi air yang tertahan di atas permukaan tanah sebelum mengalir menuju jaringan sungai. Variabel ini digunakan untuk mengidentifikasi lokasi yang berpotensi mengalami genangan akibat intensitas hujan yang tinggi.
+
+Semakin besar nilai surface ponding, semakin banyak air yang tertahan pada permukaan sehingga meningkatkan potensi terbentuknya genangan maupun limpasan permukaan (*surface runoff*). Pada simulasi ini, genangan yang terbentuk cenderung bersifat lokal dan mengikuti wilayah dengan curah hujan yang lebih tinggi.
+
+### 🎥 Animasi Surface Ponding
+
+> *(https://drive.google.com/file/d/1-KJV-1OB_r9CKtKMG11s80wrwO2T8xy7/view?usp=drive_link)*
 
 ---
 
 ##  Maximum Surface Ponding
 
+> **Sumber data:** `LDASOUT_DOMAIN*`
+
 <p align="center">
 <img src="docs/max%20surface%20ponding.png" width="900">
 </p>
 
-Visualisasi ini menunjukkan nilai maksimum surface ponding selama periode simulasi untuk mengidentifikasi lokasi dengan akumulasi genangan tertinggi.
+Visualisasi ini merupakan hasil pengolahan dari variabel **Surface Ponding** pada file **LDASOUT**, yang menampilkan nilai genangan maksimum yang terjadi selama periode simulasi. Peta ini digunakan untuk mengidentifikasi lokasi dengan potensi akumulasi genangan terbesar akibat kejadian hujan.
 
-> **Catatan:** Hasil plotting belum menampilkan jaringan sungai secara optimal sehingga interpretasi hubungan antara genangan dan sungai masih memiliki keterbatasan.
-
-🎥 **Animasi Maximum Surface Ponding**
-
-> Masukkan link Google Drive di sini.
+> **Catatan:** Pada hasil plotting ini, jaringan sungai belum dapat ditampilkan secara optimal sehingga interpretasi hubungan antara lokasi genangan dan jaringan sungai masih memiliki keterbatasan. Hal ini disebabkan oleh proses visualisasi yang masih memerlukan penyempurnaan.
 
 ---
+## 💧 Groundwater Depth
+
+> **Sumber data:** `GWOUT_DOMAIN*`
+
+<p align="center">
+<img src="docs/groundwater.png" width="900">
+</p>
+
+Groundwater Depth merupakan keluaran dari file **GWOUT (Groundwater Output)** yang menunjukkan perubahan kedalaman muka airtanah (*groundwater table depth*) selama periode simulasi pada beberapa titik pengamatan (*groundwater buckets*).
+
+Grafik memperlihatkan dinamika kedalaman muka airtanah terhadap waktu. Perbedaan pola pada setiap kurva menunjukkan bahwa masing-masing lokasi memiliki respon hidrologi yang berbeda, dipengaruhi oleh karakteristik tanah, topografi, serta jumlah air hasil infiltrasi.
+
+Variabel ini memberikan informasi mengenai respon sistem airtanah terhadap curah hujan selama kejadian Siklon Tropis Dahlia, sehingga dapat digunakan untuk mengevaluasi proses penyimpanan air bawah permukaan yang disimulasikan oleh WRF-Hydro.
 
 ## 📌 Kesimpulan Hasil Simulasi
 
-WRF-Hydro mampu menggambarkan respon hidrologi terhadap Siklon Tropis Dahlia melalui perubahan **soil moisture**, **surface ponding**, dan **streamflow**. Secara umum hasil simulasi telah memberikan gambaran kondisi hidrologi yang baik, meskipun visualisasi jaringan sungai masih memerlukan penyempurnaan.
+Hasil simulasi WRF-Hydro menunjukkan bahwa model mampu merepresentasikan respon hidrologi terhadap kejadian Siklon Tropis Dahlia melalui perubahan kelembapan tanah, distribusi genangan permukaan, serta dinamika debit sungai.
+
+Visualisasi soil moisture menunjukkan peningkatan kandungan air pada wilayah yang menerima curah hujan tinggi. Surface ponding memperlihatkan lokasi-lokasi yang berpotensi mengalami akumulasi genangan, sedangkan streamflow menggambarkan perubahan debit pada jaringan sungai selama simulasi berlangsung.
+
+Secara umum, hasil simulasi telah memberikan gambaran yang baik mengenai kondisi hidrologi selama periode kejadian. Namun demikian, beberapa visualisasi, khususnya representasi jaringan sungai pada hasil plotting, masih memerlukan penyempurnaan sehingga dapat digunakan sebagai dasar analisis hidrologi yang lebih komprehensif.
 
 # 🛠 Troubleshooting
 
