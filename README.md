@@ -5,6 +5,11 @@ Dokumentasi proses pembangunan (*build*), preprocessing, dan simulasi **WRF-Hydr
 
 Repository ini mencakup proses mulai dari build WRF-Hydro, pembuatan **Routing Stack** menggunakan **WRF-Hydro GIS Preprocessor**, pembuatan **LDASIN**, hingga menjalankan simulasi dan visualisasi hasil.
 
+# 🌧️ Latar Belakang
+
+**WRF-Hydro (Weather Research and Forecasting Hydrological Modeling System)** merupakan model hidrologi terdistribusi yang terintegrasi dengan WRF untuk mensimulasikan proses hidrologi seperti kelembapan tanah, genangan permukaan, debit sungai, dan airtanah. Pada repository ini, WRF-Hydro dijalankan secara **offline** menggunakan forcing dari simulasi **WRF-ARW v4.3** pada kejadian **Siklon Tropis Dahlia (29 November–2 Desember 2017)**. Output WRF dikonversi menjadi file **LDASIN** menggunakan Google Colab, kemudian digunakan sebagai masukan utama Noah-MP dan modul hidrologi WRF-Hydro.
+
+
 ---
 
 # 📑 Daftar Isi
@@ -1164,60 +1169,59 @@ Folder **RTOUT** berisi hasil river routing.
 
 # 🎥 Hasil Simulasi
 
-## Animasi WRF-Hydro
+Seluruh visualisasi dihasilkan dari output **LDASOUT**, **CHRTOUT**, dan **GWOUT** menggunakan Python pada Google Colab.
 
-Tambahkan GIF hasil simulasi di bawah ini.
-
-<p align="center">
-<img src="docs/wrfhydro.gif" width="900">
-</p>
-
----
-
-## Visualisasi Output
-
-Tambahkan screenshot hasil visualisasi.
+## 🌱 Soil Moisture (Top Layer)
 
 <p align="center">
-<img src="docs/output.png" width="900">
+<img src="docs/soil%20moisture.png" width="900">
 </p>
 
----
+Soil Moisture menunjukkan kandungan air pada lapisan tanah paling atas. Nilai yang semakin tinggi menunjukkan tanah semakin jenuh oleh air, sedangkan nilai yang rendah menunjukkan kondisi tanah yang lebih kering. Variabel ini digunakan untuk mengevaluasi infiltrasi dan kondisi kelembapan tanah selama simulasi.
 
-## Contoh Analisis
+🎥 **Animasi Soil Moisture**
 
-Visualisasi dapat dilakukan untuk beberapa variabel berikut.
-
-| Output | Contoh Visualisasi |
-|----------|-------------------|
-| CHRTOUT | Debit sungai |
-| LDASOUT | Temperatur permukaan |
-| LDASOUT | Soil Moisture |
-| LDASOUT | Surface Runoff |
-| GWOUT | Groundwater |
-| RTOUT | River Routing |
+> Masukkan link Google Drive di sini.
 
 ---
 
-# 📁 Folder Dokumentasi
+## 🌊 Streamflow
 
-Disarankan membuat folder berikut.
+| Distribusi Debit Sungai | Jaringan Sungai Hasil Routing |
+|:------------------------:|:-----------------------------:|
+| <img src="docs/stream%20flow%201.png" width="430"> | <img src="docs/stream%20flow%202.png" width="430"> |
 
-```text
-docs/
+Streamflow merupakan debit aliran pada jaringan sungai hasil simulasi WRF-Hydro yang diperoleh dari proses **channel routing**. Besarnya debit dipengaruhi oleh curah hujan, infiltrasi, limpasan permukaan, serta karakteristik jaringan sungai yang dibangun selama proses GIS Preprocessor.
 
-├── workflow.png
+Gambar sebelah kiri memperlihatkan distribusi debit sungai beserta titik pengamatan pada jaringan sungai, sehingga memudahkan identifikasi lokasi dengan debit terbesar selama simulasi. Sementara itu, gambar sebelah kanan menampilkan visualisasi jaringan sungai secara lebih menyeluruh, sehingga pola konektivitas dan jalur utama aliran dapat diamati dengan lebih jelas.
 
-├── routing_stack.png
+Secara umum, warna yang semakin gelap menunjukkan nilai debit (*streamflow*) yang semakin besar. Informasi ini penting untuk mengevaluasi respon hidrologi DAS terhadap kejadian hujan ekstrem selama Siklon Tropis Dahlia.
 
-├── wrfhydro.gif
+### 🎥 Animasi Streamflow
 
-├── output.png
-
-└── comparison.png
-```
+> *(Masukkan link Google Drive di sini)*
 
 ---
+
+##  Maximum Surface Ponding
+
+<p align="center">
+<img src="docs/max%20surface%20ponding.png" width="900">
+</p>
+
+Visualisasi ini menunjukkan nilai maksimum surface ponding selama periode simulasi untuk mengidentifikasi lokasi dengan akumulasi genangan tertinggi.
+
+> **Catatan:** Hasil plotting belum menampilkan jaringan sungai secara optimal sehingga interpretasi hubungan antara genangan dan sungai masih memiliki keterbatasan.
+
+🎥 **Animasi Maximum Surface Ponding**
+
+> Masukkan link Google Drive di sini.
+
+---
+
+## 📌 Kesimpulan Hasil Simulasi
+
+WRF-Hydro mampu menggambarkan respon hidrologi terhadap Siklon Tropis Dahlia melalui perubahan **soil moisture**, **surface ponding**, dan **streamflow**. Secara umum hasil simulasi telah memberikan gambaran kondisi hidrologi yang baik, meskipun visualisasi jaringan sungai masih memerlukan penyempurnaan.
 
 # 🛠 Troubleshooting
 
@@ -1274,4 +1278,14 @@ Beberapa pengembangan yang direncanakan pada repository ini antara lain:
 | Google Colab | Generate LDASIN |
 
 ---
+
+# 👩‍💻 Penulis
+
+**TC Dahlia**
+
+Dokumentasi ini dibuat sebagai bagian dari kegiatan magang di **Badan Riset dan Inovasi Nasional (BRIN)** dan bertujuan untuk mendokumentasikan proses pembangunan, preprocessing, serta simulasi **WRF-Hydro** menggunakan Docker.
+
+---
+
+⭐ Apabila repository ini bermanfaat, jangan lupa memberikan **Star** pada repository GitHub ini.
 
