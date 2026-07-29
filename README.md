@@ -1246,6 +1246,25 @@ Visualisasi ini merupakan hasil pengolahan dari variabel **Surface Ponding** pad
 > **Catatan:** Pada hasil plotting ini, jaringan sungai belum dapat ditampilkan secara optimal sehingga interpretasi hubungan antara lokasi genangan dan jaringan sungai masih memiliki keterbatasan. Hal ini disebabkan oleh proses visualisasi yang masih memerlukan penyempurnaan.
 
 ---
+
+## 📈 Top 5 Peak Streamflow
+
+> **Sumber data:** `CHRTOUT_DOMAIN*` *(Channel Routing Output)*
+
+<p align="center">
+<img src="docs/top%205%20streamflow.png" width="900">
+</p>
+
+Grafik ini menampilkan perubahan debit aliran (*streamflow*) terhadap waktu pada **lima segmen sungai (river links)** dengan nilai debit puncak tertinggi selama simulasi Siklon Tropis Dahlia. Setiap garis merepresentasikan satu segmen sungai yang diidentifikasi berdasarkan **Link ID** beserta koordinat geografisnya.
+
+Secara umum, seluruh kurva menunjukkan pola peningkatan debit yang hampir seragam sepanjang periode simulasi. Kondisi ini mengindikasikan bahwa kelima segmen sungai menerima respon hidrologi yang hampir sama terhadap curah hujan hasil simulasi WRF. Kesamaan pola tersebut juga dipengaruhi oleh lokasi kelima *river links* yang berada berdekatan dan termasuk dalam jaringan sungai yang saling terhubung, sehingga perubahan limpasan permukaan dan aliran sungai terjadi hampir secara bersamaan.
+
+Meskipun bentuk kurva terlihat hampir berhimpit, setiap garis tetap merepresentasikan segmen sungai yang berbeda. Perbedaan kecil pada nilai debit dipengaruhi oleh karakteristik masing-masing segmen, seperti luas daerah tangkapan air (*catchment area*), posisi pada jaringan sungai, serta kontribusi aliran dari anak sungai di sekitarnya.
+
+Visualisasi ini memberikan gambaran mengenai dinamika debit sungai selama simulasi serta membantu mengidentifikasi lokasi-lokasi dengan respon hidrologi terbesar terhadap kejadian hujan ekstrem akibat Siklon Tropis Dahlia.
+
+---
+
 ## 💧 Groundwater Depth
 
 > **Sumber data:** `GWOUT_DOMAIN*`
