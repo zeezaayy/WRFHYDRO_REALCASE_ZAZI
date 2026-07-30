@@ -1311,20 +1311,6 @@ Visualisasi ini memberikan gambaran mengenai dinamika debit sungai selama simula
 
 ---
 
-## 💧 Groundwater Depth
-
-> **Sumber data:** `GWOUT_DOMAIN*`
-
-<p align="center">
-<img src="docs/groundwater.png" width="900">
-</p>
-
-Groundwater Depth merupakan keluaran dari file **GWOUT (Groundwater Output)** yang menunjukkan perubahan kedalaman muka airtanah (*groundwater table depth*) selama periode simulasi pada beberapa titik pengamatan (*groundwater buckets*).
-
-Grafik memperlihatkan dinamika kedalaman muka airtanah terhadap waktu. Perbedaan pola pada setiap kurva menunjukkan bahwa masing-masing lokasi memiliki respon hidrologi yang berbeda, dipengaruhi oleh karakteristik tanah, topografi, serta jumlah air hasil infiltrasi.
-
-Variabel ini memberikan informasi mengenai respon sistem airtanah terhadap curah hujan selama kejadian Siklon Tropis Dahlia, sehingga dapat digunakan untuk mengevaluasi proses penyimpanan air bawah permukaan yang disimulasikan oleh WRF-Hydro.
-
 ## 📌 Kesimpulan Hasil Simulasi
 
 Hasil simulasi WRF-Hydro menunjukkan bahwa model mampu merepresentasikan respon hidrologi terhadap kejadian Siklon Tropis Dahlia melalui perubahan kelembapan tanah, distribusi genangan permukaan, serta dinamika debit sungai.
