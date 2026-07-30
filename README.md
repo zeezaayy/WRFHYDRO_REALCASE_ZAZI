@@ -1205,7 +1205,7 @@ Nilai soil moisture yang semakin tinggi menunjukkan bahwa tanah semakin jenuh ol
 
 | STREAMFLOW WRF HYDRO | CURAH HUJAN WRF |
 |:------------------------:|:---------------------------:|
-| <img src="docs/perbandingan%20streamflow%201.png" width="430"> | <img src="docs/curah%20hujan%202d02.png" width="430"> |
+| <img src="docs/perbandingan%20streamflow.png" width="420"> | <img src="docs/curah%20hujan%20d02.png" width="420"> |
 
 Streamflow merupakan keluaran dari file **CHRTOUT (Channel Routing Output)** yang merepresentasikan debit aliran pada jaringan sungai hasil simulasi WRF-Hydro. Variabel ini dihasilkan melalui proses **channel routing**, yaitu simulasi pergerakan air dari limpasan permukaan menuju jaringan sungai berdasarkan karakteristik DAS dan topografi.
 
