@@ -1237,6 +1237,48 @@ Semakin besar nilai surface ponding, semakin banyak air yang tertahan pada permu
 
 ---
 
+## 🌊 Analisis Dampak Hidrologi Siklon Tropis Dahlia
+
+<p align="center">
+<img src="docs/dampak%20siklom.png" width="950">
+</p>
+
+Visualisasi ini menyajikan rangkaian proses hidrologi selama kejadian **Siklon Tropis Dahlia** dengan fokus pada wilayah **pesisir selatan Pulau Jawa**. Empat panel yang ditampilkan menggambarkan hubungan antara kondisi atmosfer hasil simulasi WRF dengan respon hidrologi yang dihasilkan oleh WRF-Hydro, sehingga memudahkan interpretasi dampak hujan terhadap sistem hidrologi.
+
+### Penjelasan Setiap Panel
+
+**1. Intensitas Curah Hujan (WRF)**
+
+Panel pertama memperlihatkan distribusi curah hujan per jam hasil simulasi **WRF-ARW**. Curah hujan berperan sebagai sumber utama (*forcing*) yang menggerakkan seluruh proses hidrologi pada WRF-Hydro. Wilayah dengan intensitas hujan yang lebih tinggi berpotensi menghasilkan limpasan permukaan yang lebih besar dibandingkan wilayah dengan curah hujan rendah.
+
+**2. Streamflow (WRF-Hydro)**
+
+Panel kedua menunjukkan debit aliran sungai (*streamflow*) hasil simulasi **WRF-Hydro** yang berasal dari file **CHRTOUT**. Peningkatan debit pada jaringan sungai menunjukkan bahwa air hujan yang jatuh telah mengalami proses infiltrasi dan routing menuju saluran sungai. Sungai utama memperlihatkan debit yang lebih besar dibandingkan anak sungai sehingga menjadi jalur utama pengaliran air.
+
+**3. Surface Ponding (WRF-Hydro)**
+
+Panel ketiga menampilkan distribusi **surface ponding** yang berasal dari file **LDASOUT**. Variabel ini menggambarkan akumulasi air yang tertahan di permukaan tanah sebelum seluruhnya mengalir ke jaringan sungai. Daerah dengan nilai surface ponding yang tinggi menunjukkan lokasi yang memiliki potensi genangan lebih besar akibat kapasitas infiltrasi yang terbatas atau intensitas hujan yang tinggi.
+
+**4. Status Potensi Genangan**
+
+Panel keempat merupakan hasil klasifikasi berdasarkan nilai **surface ponding** untuk memudahkan interpretasi tingkat potensi genangan. Pada visualisasi ini, genangan dibagi menjadi tiga kategori:
+
+- 🟡 **Genangan ringan** (10–50 mm)
+- 🟠 **Waspada** (50–100 mm)
+- 🔴 **Potensi genangan tinggi** (>100 mm)
+
+Klasifikasi ini memberikan gambaran spasial mengenai wilayah yang memerlukan perhatian lebih selama kejadian hujan ekstrem.
+
+### Interpretasi Hasil
+
+Keempat panel tersebut menunjukkan keterkaitan yang jelas antara proses atmosfer dan respon hidrologi. Curah hujan hasil simulasi WRF menjadi masukan utama bagi WRF-Hydro, yang kemudian menghasilkan peningkatan debit sungai, terbentuknya genangan permukaan, serta klasifikasi tingkat potensi genangan.
+
+Pada kasus **Siklon Tropis Dahlia**, wilayah pesisir selatan Pulau Jawa memperlihatkan peningkatan respon hidrologi terutama pada area yang menerima curah hujan lebih tinggi. Namun demikian, distribusi genangan tidak sepenuhnya mengikuti pola curah hujan karena juga dipengaruhi oleh karakteristik topografi, kapasitas infiltrasi tanah, serta proses routing aliran yang disimulasikan oleh WRF-Hydro.
+
+### 🎥 Animasi Dampak Hidrologi
+
+> *(https://drive.google.com/file/d/13ccnnmUzrXNof1mf7Nb0wQ-dEAePNDnn/view?usp=drive_link)*
+
 ##  Maximum Surface Ponding
 
 > **Sumber data:** `LDASOUT_DOMAIN*`
